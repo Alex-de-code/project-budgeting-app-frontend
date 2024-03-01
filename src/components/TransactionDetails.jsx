@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 
-const TransactionDetails = ({ toggleTransactions }) => {
+const TransactionDetails = ({ toggleTransactions, setTransactions }) => {
   const [transactionDetails, setTransactionDetails] = useState();
   // takes what was typed in in URL
   const { id } = useParams();
@@ -15,6 +15,17 @@ const TransactionDetails = ({ toggleTransactions }) => {
   // conditional rendering
   if (!transactionDetails) return null;
 
+  function handleDelete(id) {
+    console.log(id);
+    const options = {
+      method: "DELETE",
+    };
+
+    fetch(`http://localhost:4321/transactions/${id}`, options)
+      .then((res) => res.json())
+      .then((data) => setTransactions(data.transactions));
+  }
+
   return (
     <div>
       <h1>Transaction Details</h1>
@@ -23,6 +34,7 @@ const TransactionDetails = ({ toggleTransactions }) => {
       <h6>Amount: ${transactionDetails.amount}</h6>
       <h6>From: {transactionDetails.from}</h6>
       <h6>Category: {transactionDetails.category}</h6>
+      <button onClick={() => handleDelete(id)}>Delete</button>
       <Link to={`/`}>
         <button>Home</button>
       </Link>

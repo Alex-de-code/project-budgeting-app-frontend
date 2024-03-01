@@ -1,8 +1,9 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
-import Transactions from "./Transactions";
-import TransactionDetails from "./TransactionDetails";
+import Transactions from "./components/Transactions";
+import TransactionDetails from "./components/TransactionDetails";
+import TransactionsForm from "./components/TransactionsForm";
 
 const App = () => {
   // this state sets array with all transactions
@@ -12,6 +13,7 @@ const App = () => {
     show: false,
     id: null,
   });
+  const [toggleTransactionsForm, setToggleTransactionsForm] = useState(false);
 
   return (
     <div>
@@ -30,7 +32,19 @@ const App = () => {
         <Route
           path="/:id"
           element={
-            <TransactionDetails toggleTransactions={toggleTransactions} />
+            <TransactionDetails
+              toggleTransactions={toggleTransactions}
+              setTransactions={setTransactions}
+            />
+          }
+        />
+        <Route
+          path="/new"
+          element={
+            <TransactionsForm
+              setTransactions={setTransactions}
+              setToggleTransactionsForm={setToggleTransactionsForm}
+            />
           }
         />
       </Routes>
