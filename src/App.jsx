@@ -1,5 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import Transactions from "./Transactions";
 import TransactionDetails from "./TransactionDetails";
 
@@ -15,12 +16,24 @@ const App = () => {
   return (
     <div>
       <h1>Header Place Holder</h1>
-      <Transactions
-        transactions={transactions}
-        setTransactions={setTransactions}
-        setToggleTransactions={setToggleTransactions}
-      />
-      <TransactionDetails toggleTransactions={toggleTransactions} />
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <Transactions
+              transactions={transactions}
+              setTransactions={setTransactions}
+              setToggleTransactions={setToggleTransactions}
+            />
+          }
+        />
+        <Route
+          path="/:id"
+          element={
+            <TransactionDetails toggleTransactions={toggleTransactions} />
+          }
+        />
+      </Routes>
       <h4>Footer Place Holder</h4>
     </div>
   );
