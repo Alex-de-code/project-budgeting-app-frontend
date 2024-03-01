@@ -4,6 +4,7 @@ import { Route, Routes, useNavigate } from "react-router-dom";
 import Transactions from "./components/Transactions";
 import TransactionDetails from "./components/TransactionDetails";
 import TransactionsForm from "./components/TransactionsForm";
+import Navbar from "./components/Navbar";
 
 const App = () => {
   // this state sets array with all transactions
@@ -17,7 +18,7 @@ const App = () => {
 
   return (
     <div>
-      <h1>Header Place Holder</h1>
+      <Navbar />
       <Routes>
         <Route
           path="/"
