@@ -5,16 +5,18 @@ import Transactions from "./components/Transactions";
 import TransactionDetails from "./components/TransactionDetails";
 import TransactionsForm from "./components/TransactionsForm";
 import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 
 const App = () => {
   // this state sets array with all transactions
   const [transactions, setTransactions] = useState([]);
-  //this state will toggle the Transactions component and send the id
-  const [toggleTransactions, setToggleTransactions] = useState({
-    show: false,
-    id: null,
-  });
-  const [toggleTransactionsForm, setToggleTransactionsForm] = useState(false);
+  //this state will toggle the TransactionDetails component and send the id
+
+  useEffect(() => {
+    fetch("http://localhost:4321/transactions")
+      .then((res) => res.json())
+      .then((data) => setTransactions(data.transactions));
+  }, []);
 
   return (
     <div>
@@ -26,30 +28,23 @@ const App = () => {
             <Transactions
               transactions={transactions}
               setTransactions={setTransactions}
-              setToggleTransactions={setToggleTransactions}
             />
           }
         />
         <Route
           path="/:id"
-          element={
-            <TransactionDetails
-              toggleTransactions={toggleTransactions}
-              setTransactions={setTransactions}
-            />
-          }
+          element={<TransactionDetails setTransactions={setTransactions} />}
         />
         <Route
-          path="/new"
-          element={
-            <TransactionsForm
-              setTransactions={setTransactions}
-              setToggleTransactionsForm={setToggleTransactionsForm}
-            />
-          }
+          path="/edit/:id"
+          element={<TransactionsForm setTransactions={setTransactions} />}
+        />
+        <Route
+          path="/new/"
+          element={<TransactionsForm setTransactions={setTransactions} />}
         />
       </Routes>
-      <h4>Footer Place Holder</h4>
+      <Footer />
     </div>
   );
 };

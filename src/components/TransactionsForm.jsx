@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams, Link } from "react-router-dom";
 
-const TransactionsForm = ({ setTransactions, setToggleTransactionsForm }) => {
+const TransactionsForm = ({ setTransactions }) => {
   const navigate = useNavigate();
   const { id } = useParams();
 
   const [newTransaction, setNewTransaction] = useState({
     item_name: "",
-    amount: "",
+    amount: 0,
     date: "",
     from: "",
     category: "",
@@ -20,28 +20,63 @@ const TransactionsForm = ({ setTransactions, setToggleTransactionsForm }) => {
   function handleSubmit(e) {
     e.preventDefault();
 
-    const options = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(newTransaction),
-    };
-
-    fetch(`http://localhost:4321/transactions`, options)
-      .then((res) => res.json())
-      .then((data) => setTransactions(data.transactions))
-      // we set to false so that this dissappears from the screen
-      .then(() => setToggleTransactionsForm(false))
-      //reset the form (brute force way)
-      .then(() =>
-        setNewTransaction({
-          item_name: "",
-          amount: "",
-          date: "",
-          from: "",
-          category: "",
+    if (id) {
+      const options = {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(newTransaction),
+      };
+      fetch(`http://localhost:4321/transactions/${id}`, options)
+        .then((res) => res.json())
+        .then((data) => {
+          console.log("Response data:", data);
+          setTransactions(data.transactions);
+          // setNewTransaction(data.newTransaction);
         })
-      );
+        .then(() => navigate("/"))
+        .catch((error) => {
+          console.error("Error updating transaction:", error);
+        });
+    } else {
+      const options = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(newTransaction),
+      };
+
+      fetch(`http://localhost:4321/transactions`, options)
+        .then((res) => res.json())
+        .then((data) => {
+          console.log("Response data:", data);
+          setTransactions(data.transactions);
+          // setNewTransaction(data.newTransaction);
+        })
+        .then(() => navigate("/"))
+        .catch((error) => {
+          console.error("Error creating transaction:", error);
+        });
+    }
   }
+
+  useEffect(() => {
+    if (id) {
+      fetch(`http://localhost:4321/transactions/${id}`)
+        .then((res) => res.json())
+        .then((data) => {
+          // transaction is the obj for the show view/ id view from the backend
+          setNewTransaction(data.transaction);
+        });
+    } else {
+      // Reset the form fields if no id (indicating a new transaction)
+      setNewTransaction({
+        item_name: "",
+        amount: 0,
+        date: "",
+        from: "",
+        category: "",
+      });
+    }
+  }, [id]);
 
   return (
     <div>
@@ -97,10 +132,11 @@ const TransactionsForm = ({ setTransactions, setToggleTransactionsForm }) => {
             value={newTransaction.category}
           />
         </label>
-        <Link to={"/"}>
-          <button>Submit</button>
-        </Link>
+        <input type="submit" />
       </form>
+      <Link to={`/`}>
+        <button>Cancel</button>
+      </Link>
     </div>
   );
 };

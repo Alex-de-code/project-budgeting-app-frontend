@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 
-const TransactionDetails = ({ toggleTransactions, setTransactions }) => {
+const TransactionDetails = ({ setTransactions }) => {
   const [transactionDetails, setTransactionDetails] = useState();
   // takes what was typed in in URL
   const { id } = useParams();
@@ -34,7 +34,12 @@ const TransactionDetails = ({ toggleTransactions, setTransactions }) => {
       <h6>Amount: ${transactionDetails.amount}</h6>
       <h6>From: {transactionDetails.from}</h6>
       <h6>Category: {transactionDetails.category}</h6>
-      <button onClick={() => handleDelete(id)}>Delete</button>
+      <Link to={`/edit/${id}`}>
+        <button>Edit</button>
+      </Link>
+      <Link to={"/"}>
+        <button onClick={() => handleDelete(id)}>Delete</button>
+      </Link>
       <Link to={`/`}>
         <button>Home</button>
       </Link>
