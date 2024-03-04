@@ -79,64 +79,83 @@ const TransactionsForm = ({ setTransactions }) => {
   }, [id]);
 
   return (
-    <div>
-      <h1>Transactions Form</h1>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="item_name">
-          Item Name:
-          <input
-            onChange={handleChange}
-            type="text"
-            id="item_name"
-            name="item_name"
-            value={newTransaction.item_name}
-          />
-        </label>
-        <label htmlFor="amount">
-          Amount:
-          <input
-            onChange={handleChange}
-            type="number"
-            id="amount"
-            name="amount"
-            value={newTransaction.amount}
-          />
-        </label>
-        <label htmlFor="date">
-          Date:
-          <input
-            onChange={handleChange}
-            type="date"
-            id="date"
-            name="date"
-            value={newTransaction.date}
-          />
-        </label>
-        <label htmlFor="from">
-          From:
-          <input
-            onChange={handleChange}
-            type="text"
-            id="from"
-            name="from"
-            value={newTransaction.from}
-          />
-        </label>
-        <label htmlFor="category">
-          Category:
-          <input
-            onChange={handleChange}
-            type="text"
-            id="category"
-            name="category"
-            value={newTransaction.category}
-          />
-        </label>
-        <input type="submit" />
-      </form>
-      <Link to={`/`}>
-        <button>Cancel</button>
-      </Link>
+    <div className="bg-blue-200 xs:py-5">
+      <div className="xs:mx-5 bg-zinc-200 rounded-3xl shadow">
+        <h1 className="text-center xs: text-2xl pt-5">Transactions Form</h1>
+        <form className="grid xs:px-10" onSubmit={handleSubmit}>
+          <label htmlFor="item_name">
+            Item Name:
+            <input
+              className="border-2 border-blue-400 rounded hover:border-orange-400 bg-zinc-50 mt-3 ml-3 shadow"
+              onChange={handleChange}
+              type="text"
+              id="item_name"
+              name="item_name"
+              value={newTransaction.item_name}
+              required
+            />
+          </label>
+          <label htmlFor="amount">
+            Amount:
+            <input
+              className="border-2 border-blue-400 rounded hover:border-orange-400 bg-zinc-50 mt-3 ml-3 shadow"
+              onChange={handleChange}
+              type="number"
+              id="amount"
+              name="amount"
+              value={newTransaction.amount}
+              required
+            />
+          </label>
+          <label htmlFor="date">
+            Date:
+            <input
+              className="border-2 border-blue-400 rounded hover:border-orange-400 bg-zinc-50 mt-3 ml-3 shadow"
+              onChange={handleChange}
+              type="date"
+              id="date"
+              name="date"
+              value={newTransaction.date}
+              required
+            />
+          </label>
+          <label htmlFor="from">
+            From:
+            <input
+              className="border-2 border-blue-400 rounded hover:border-orange-400 bg-zinc-50 mt-3 ml-3 shadow"
+              onChange={handleChange}
+              type="text"
+              id="from"
+              name="from"
+              value={newTransaction.from}
+              required
+            />
+          </label>
+          <label htmlFor="category">
+            Category:
+            <input
+              className="border-2 border-blue-400 rounded hover:border-orange-400 bg-zinc-50 my-3 ml-3 shadow"
+              onChange={handleChange}
+              type="text"
+              id="category"
+              name="category"
+              value={newTransaction.category}
+              required
+            />
+          </label>
+          <div className="grid-flow-row mb-8 mt-5">
+            <input
+              className="rounded w-3/5 py-1 bg-green-400 hover:bg-green-500 shadow"
+              type="submit"
+            />
+            <Link to={`/`}>
+              <button className="rounded bg-zinc-400 w-1/4 py-1 justify-end ml-8 hover:bg-zinc-500 shadow">
+                Cancel
+              </button>
+            </Link>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };
