@@ -37,7 +37,7 @@ const Transactions = ({ transactions, setTransactions }) => {
         <div className="overflow-y-auto h-72">
           {transactions.map(({ id, item_name, amount, date }) => (
             <div
-              className="grid xs:grid-cols-5 my-2 bg-white rounded-md"
+              className="grid xs:grid-cols-5 my-2 bg-white hover:bg-orange-200 rounded-md"
               key={id}
             >
               <div className="col-span-4 ml-2">
