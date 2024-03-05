@@ -21,7 +21,7 @@ const TransactionDetails = ({ setTransactions, apiUrl }) => {
       method: "DELETE",
     };
 
-    fetch(`${VITE_API_URL}/transactions/${id}`, options)
+    fetch(`${apiUrl}/transactions/${id}`, options)
       .then((res) => res.json())
       .then((data) => setTransactions(data.transactions));
   }
