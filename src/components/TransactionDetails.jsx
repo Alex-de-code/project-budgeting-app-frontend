@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 
-const TransactionDetails = ({ setTransactions }) => {
+const TransactionDetails = ({ setTransactions, apiUrl }) => {
   const [transactionDetails, setTransactionDetails] = useState();
   // takes what was typed in in URL
   const { id } = useParams();
 
   useEffect(() => {
-    fetch(`${VITE_API_URL}/transactions/${id}`)
+    fetch(`${apiUrl}/transactions/${id}`)
       .then((res) => res.json())
       .then((data) => setTransactionDetails(data.transaction));
   }, [id]);

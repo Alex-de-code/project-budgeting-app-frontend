@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams, Link } from "react-router-dom";
 
-const TransactionsForm = ({ setTransactions }) => {
+const TransactionsForm = ({ setTransactions, apiUrl }) => {
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -26,7 +26,7 @@ const TransactionsForm = ({ setTransactions }) => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newTransaction),
       };
-      fetch(`${VITE_API_URL}/transactions/${id}`, options)
+      fetch(`${apiUrl}/transactions/${id}`, options)
         .then((res) => res.json())
         .then((data) => {
           console.log("Response data:", data);
@@ -44,7 +44,7 @@ const TransactionsForm = ({ setTransactions }) => {
         body: JSON.stringify(newTransaction),
       };
 
-      fetch(`${VITE_API_URL}/transactions`, options)
+      fetch(`${apiUrl}/transactions`, options)
         .then((res) => res.json())
         .then((data) => {
           console.log("Response data:", data);
@@ -60,7 +60,7 @@ const TransactionsForm = ({ setTransactions }) => {
 
   useEffect(() => {
     if (id) {
-      fetch(`${VITE_API_URL}/transactions/${id}`)
+      fetch(`${apiUrl}/transactions/${id}`)
         .then((res) => res.json())
         .then((data) => {
           // transaction is the obj for the show view/ id view from the backend

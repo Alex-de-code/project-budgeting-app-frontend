@@ -9,6 +9,8 @@ import Footer from "./components/Footer";
 import TransactionChart from "./components/TransactionChart";
 
 const App = () => {
+  // Define apiUrl variable using environment variable
+  const apiUrl = import.meta.env.VITE_API_URL;
   // this state sets array with all transactions
   const [transactions, setTransactions] = useState([]);
   //this state will toggle the TransactionDetails component and send the id
@@ -25,7 +27,7 @@ const App = () => {
   });
 
   useEffect(() => {
-    fetch(`${VITE_API_URL}/transactions`)
+    fetch(`${apiUrl}/transactions`)
       .then((res) => res.json())
       .then((data) => setTransactions(data.transactions));
   }, []);
@@ -58,15 +60,30 @@ const App = () => {
         />
         <Route
           path="/:id"
-          element={<TransactionDetails setTransactions={setTransactions} />}
+          element={
+            <TransactionDetails
+              setTransactions={setTransactions}
+              apiUrl={apiUrl}
+            />
+          }
         />
         <Route
           path="/edit/:id"
-          element={<TransactionsForm setTransactions={setTransactions} />}
+          element={
+            <TransactionsForm
+              setTransactions={setTransactions}
+              apiUrl={apiUrl}
+            />
+          }
         />
         <Route
           path="/new/"
-          element={<TransactionsForm setTransactions={setTransactions} />}
+          element={
+            <TransactionsForm
+              setTransactions={setTransactions}
+              apiUrl={apiUrl}
+            />
+          }
         />
       </Routes>
       {/* <TransactionChart chartData={userData} /> */}
