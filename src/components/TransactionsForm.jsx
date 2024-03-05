@@ -26,7 +26,7 @@ const TransactionsForm = ({ setTransactions }) => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newTransaction),
       };
-      fetch(`http://localhost:4321/transactions/${id}`, options)
+      fetch(`${VITE_API_URL}/transactions/${id}`, options)
         .then((res) => res.json())
         .then((data) => {
           console.log("Response data:", data);
@@ -44,7 +44,7 @@ const TransactionsForm = ({ setTransactions }) => {
         body: JSON.stringify(newTransaction),
       };
 
-      fetch(`http://localhost:4321/transactions`, options)
+      fetch(`${VITE_API_URL}/transactions`, options)
         .then((res) => res.json())
         .then((data) => {
           console.log("Response data:", data);
@@ -60,7 +60,7 @@ const TransactionsForm = ({ setTransactions }) => {
 
   useEffect(() => {
     if (id) {
-      fetch(`http://localhost:4321/transactions/${id}`)
+      fetch(`${VITE_API_URL}/transactions/${id}`)
         .then((res) => res.json())
         .then((data) => {
           // transaction is the obj for the show view/ id view from the backend

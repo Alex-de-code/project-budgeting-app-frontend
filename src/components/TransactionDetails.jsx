@@ -7,7 +7,7 @@ const TransactionDetails = ({ setTransactions }) => {
   const { id } = useParams();
 
   useEffect(() => {
-    fetch(`http://localhost:4321/transactions/${id}`)
+    fetch(`${VITE_API_URL}/transactions/${id}`)
       .then((res) => res.json())
       .then((data) => setTransactionDetails(data.transaction));
   }, [id]);
@@ -21,7 +21,7 @@ const TransactionDetails = ({ setTransactions }) => {
       method: "DELETE",
     };
 
-    fetch(`http://localhost:4321/transactions/${id}`, options)
+    fetch(`${VITE_API_URL}/transactions/${id}`, options)
       .then((res) => res.json())
       .then((data) => setTransactions(data.transactions));
   }

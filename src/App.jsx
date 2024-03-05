@@ -25,7 +25,7 @@ const App = () => {
   });
 
   useEffect(() => {
-    fetch("http://localhost:4321/transactions")
+    fetch(`${VITE_API_URL}/transactions`)
       .then((res) => res.json())
       .then((data) => setTransactions(data.transactions));
   }, []);
